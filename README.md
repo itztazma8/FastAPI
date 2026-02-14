@@ -7,4 +7,4 @@ For database and dealing with data, we use MySQL. The details on the server can 
 ## FastAPI
 The reason for selecting FastAPI is because it is lightweight and can be scalable in the long run. Also, this is one of the popular frameworks used widely. 
 
-**NB:** The table used here is purely experimental. Following update on schema and tables will be given accordingly.
+**NB:** The table used here is purely experimental. Following updates on schema and tables will be given accordingly.
