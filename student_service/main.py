@@ -1,25 +1,27 @@
-from fastapi import FastAPI, Depends
-from db_verification import connection
+from fastapi import FastAPI, Depends, status
 from typing import List
-from models.student import Student
-from models.student import Partial_Update
-from services.student_service import StudentService
+from schema import Student
+from schema import Partial_Update
+from service import StudentService
 from db import injection
 
 app=FastAPI()
 service=StudentService()
 
-@app.post("/student")
+@app.post("/student" , status_code=status.HTTP_201_CREATED)
 def enter_data(entries: List[Student], conn=Depends(injection)):
     return service.create(entries, conn)
 
+@app.get("/students")
+def show_all(skip:int= 0, limit: int= 10, conn=Depends(injection)):
+    return service.fetch_all(conn, skip, limit)
 
 @app.get("/student/{student_id}")
 def show_details(student_id:int, conn=Depends(injection)):
     return service.fetch(student_id, conn)
     
 
-@app.delete("/student/{student_id}")
+@app.delete("/student/{student_id}", status_code=status.HTTP_204_NO_CONTENT)
 def remove_students(student_id:int, conn=Depends(injection)):
     return service.delete(student_id, conn)
 

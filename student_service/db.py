@@ -1,8 +1,15 @@
-from db_verification import connection
-from fastapi import Depends
+import mysql.connector
+
+def connection():
+    return mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="FastAPI123!",
+        database="students"
+    )
 
 def injection():
-    conn=connection()
+    conn = connection()
     try:
         yield conn
     finally:
