@@ -1,9 +1,10 @@
 from mysql.connector import Error, IntegrityError
 from fastapi import HTTPException, status
 
-
+"""This class below contains the actual code implementation of the REST mechanisms"""
 class StudentService:
     
+    """Function: Creation of Data"""
     def create(self, student_list, conn):
         try:
             cursor=conn.cursor(dictionary=True)
@@ -32,7 +33,8 @@ class StudentService:
             )
         finally:
             cursor.close()
-
+    
+    """Function: Fetching all data from the database"""
     def fetch_all(self, conn, skip, limit):
         try:
             cursor=conn.cursor(dictionary=True)
@@ -48,6 +50,7 @@ class StudentService:
         finally:
             cursor.close()
 
+    """Function: Fetching data of a particular student from the database"""
     def fetch(self, student_id:int, conn):
         try:
             cursor=conn.cursor(dictionary=True)
@@ -69,7 +72,7 @@ class StudentService:
         finally:
             cursor.close()
         
-
+    """Function: Deletion of all data of a certain entry"""
     def delete(self, student_id:int, conn):
         try:
             cursor=conn.cursor(dictionary=True)
@@ -96,7 +99,7 @@ class StudentService:
         finally:
             cursor.close()
         
-    
+    """Functin: Update all data of a given ID"""
     def update(self, student_id: int, data, conn):
         try:
             cursor=conn.cursor(dictionary=True)
@@ -125,7 +128,7 @@ class StudentService:
             cursor.close()
          
 
-    
+    """"Function: Partially update data barring the ID"""
     def partial_update(self, student_id:int, data, conn):
         try:
             partial_data=data.dict(exclude_unset=True)
@@ -134,6 +137,8 @@ class StudentService:
                 raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                                     detail="No data found")
             
+
+
 
             cursor=conn.cursor(dictionary=True)
 
