@@ -1,4 +1,5 @@
 import mysql.connector
+import os
 
 """Defining MySql connection for the database root which is the main database"""
 def connection():
